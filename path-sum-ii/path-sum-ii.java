@@ -15,40 +15,32 @@
  */
 class Solution {
     public List<List<Integer>> pathSum(TreeNode root, int targetSum) {
-        
         List<List<Integer>> result = new ArrayList<>();
         List<Integer> path = new ArrayList<>();
-        if(root == null)
-        {    
-         return result;
-        }
-        
-        pathsumHelper(root,targetSum,result,path);
-        
+        recursive_path(result,path,targetSum,root);
         return result;
         
     }
-    
-    
-    void pathsumHelper(TreeNode node, int remainSum,List<List<Integer>> result,List<Integer> path)
+                       
+    void recursive_path( List<List<Integer>> result,List<Integer> path,int targetSum,TreeNode node)
     {
-        
         if(node==null)
-        {    return;
-       
-         }
+            return;
         
         path.add(node.val);
         
-        if(node.val==remainSum && node.left==null && node.right==null)
+        if(node.left==null && node.right==null && targetSum==node.val)
         {
             result.add(new ArrayList<>(path));
+            
         }
-        
-        else{
-        pathsumHelper(node.left,remainSum-node.val,result,path);
-        pathsumHelper(node.right,remainSum-node.val,result,path);
-             }        
+        else
+        {
+            recursive_path(result,path,targetSum-node.val,node.left);
+                
+                recursive_path(result,path,targetSum-node.val,node.right);
+        }
+    
         path.remove(path.size()-1);
     }
-}//T-O(n^2),S-O(n)where n is number of nodes
+}//T-O(n^2,S-O(n)
