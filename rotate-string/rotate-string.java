@@ -1,27 +1,21 @@
 class Solution {
     public boolean rotateString(String s, String goal) {
-        String ss = s+s;
-        if(s== "" && goal !=null)
-            return false;
-
-    if(s!= null && goal =="")
-            return true;
         
-
-      
-        for(int i=0;i<ss.length()-1;i++)
+        if(s.length()!=goal.length())
+            return false;
+        int i=0;
+        int j=s.length();
+        
+        while(i<j)
         {
-            for(int j=i+1;j<ss.length();j++)
+            s=s.substring(1,s.length()).concat(s.substring(0,1));
+            
+            if(s.equals(goal))
             {
-                
-                if((goal.length()== s.length()) && goal.equals(ss.substring(i,j)))
-                {
-                    return true;
-                }
+                return true;
             }
+            i++;
         }
         return false;
-        
     }
 }
-//T->O(n^2), S->O(n), n ->length of s
