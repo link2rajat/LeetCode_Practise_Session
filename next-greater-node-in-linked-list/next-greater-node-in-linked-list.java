@@ -11,29 +11,26 @@
 class Solution {
     public int[] nextLargerNodes(ListNode head) {
         
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         
-        Deque<Integer> stack = new ArrayDeque<>();
-        
-        for(ListNode current = head; current != null;current=current.next)
+        for(ListNode current=head;current != null;current=current.next)
         {
             list.add(current.val);
         }
         
+        Deque<Integer> stack = new ArrayDeque<>();
+        
         int[] result = new int[list.size()];
-        
-        for(int index=0;index<list.size();index++)
+  
+        for(int i=0;i<list.size();i++)
         {
-            while(!stack.isEmpty()&& list.get(stack.peek())<list.get(index))
-            {
-                result[stack.pop()]= list.get(index);
-            }
-            stack.push(index);
+           while(!stack.isEmpty() && list.get(stack.peek())<list.get(i))
+           {
+               result[stack.pop()]=list.get(i);
+           }
+            stack.push(i);
         }
-        
-        
         return result;
         
     }
-}
-//T-O(n),S-O(n),n->size of linkedlist
+}//T-O(n),S-O(n)
