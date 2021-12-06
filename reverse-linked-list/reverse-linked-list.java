@@ -3,22 +3,24 @@
  * public class ListNode {
  *     int val;
  *     ListNode next;
- *     ListNode(int x) { val = x; }
+ *     ListNode() {}
+ *     ListNode(int val) { this.val = val; }
+ *     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
  * }
  */
 class Solution {
     public ListNode reverseList(ListNode head) {
-    
-    ListNode prev = null;
+        ListNode prev =null;
         
-        while(head != null)
+        while(head!=null)
         {
             ListNode nextHead = head.next;
-            head.next = prev;
-            prev = head;
-            head = nextHead;
-       }
+            head.next=prev;
+            prev=head;
+            head=nextHead;
+        
+        }
+        
         return prev;
     }
-    
- }//T-O(n),S-O(1), n is length of Linked List
+}//T-O(n),S-O(1)
