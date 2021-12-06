@@ -4,25 +4,25 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
 class Solution {
-    
-    public boolean hasPathSum(TreeNode root, int sum) {
-        
+    public boolean hasPathSum(TreeNode root, int targetSum) {
+     
         if(root==null)
-        {
-          return false;
-        }
-        else if(root.left== null && root.right==null && sum-root.val==0)
-        {
-            return true;
-        }
-        else{
-        return hasPathSum(root.left,sum-root.val) || hasPathSum(root.right,sum-root.val);
-        }
+            return false;
+            
+    if(root.left==null && root.right==null && root.val ==targetSum)
+           return true;
+ else
+   return hasPathSum(root.left,targetSum-root.val) || hasPathSum(root.right,targetSum-root.val);
         
     }
-  
-}//T-O(n),S-O(n) where n is # of tree nodes
+}//T-O(n),S-O(n)
