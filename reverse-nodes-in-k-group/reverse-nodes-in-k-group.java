@@ -13,17 +13,19 @@ class Solution {
         ListNode ptr = head;
         
         int count=0;
-        
+        //count k nodes 
         while(count<k && ptr!=null)
         {
             ptr=ptr.next;
             count+=1;
         }
-        
+        //reverse k nodes at a time 
         if(count==k)
         {
             ListNode revHead = reverseKNodes(head,k);
+            //pick next k nodes for reversal 
             head.next=reverseKGroup(ptr,k);
+            
             return revHead;
         }
         return head;
