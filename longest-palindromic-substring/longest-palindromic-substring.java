@@ -1,43 +1,48 @@
 class Solution {
     public String longestPalindrome(String s) {
-       String result = new String();
-        int maxlength=Integer.MIN_VALUE;
-        for(int i=0;i<s.length();i++)
-        {
-            String palindrom = parlindromicaroundCenter(i,i,s);
-            
-            if(palindrom.length()>maxlength)
-            {
-                maxlength=palindrom.length();
-                result = palindrom;
-            }
 
+        int n = s.length();
+       //  if (n<=1)return s;
         
-            String palindrom_even = parlindromicaroundCenter(i,i+1,s);
-            
-            if(palindrom_even.length()>maxlength)
-            {
-                maxlength=palindrom_even.length();
-                result = palindrom_even;
-            }
-
+        boolean[][] dp = new boolean[n][n];
+        
+        int palinStart=0;
+        int maxLen=1;
+        
+       //Trivial case: single letter palindromes  
+        for(int i=0;i<n;i++)
+        {
+            dp[i][i]=true;
             
         }
-        
-        return result;
-    }
-    
-    String parlindromicaroundCenter(int start, int end, String s)
-    {
-        while(start>=0 && end<s.length()&& s.charAt(start)==s.charAt(end))
+       
+        //Finding palindromes of two characters
+        for(int i=0;i<n-1;i++)
         {
-            start--;
-            end++;
+         if(s.charAt(i)==s.charAt(i+1)) 
+          {
+            dp[i][i+1]=true;
+             palinStart=i;
+             maxLen=2;
+          }
         }
-        
-        return s.substring(start+1,end);
-        
-        
+        //Finding palindromes of length 3 to n and saving the longest
+        for(int curr_len=3;curr_len<=n;curr_len++)
+        {
+          for(int i=0;i<n-curr_len+1;i++) 
+          {
+              int j=i+curr_len-1;
+              if(s.charAt(i)==s.charAt(j) //First and last characters should match 
+                 && dp[i+1][j-1]) //Rest of the substring should be a palindrome
+              {
+              dp[i][j]=true;
+                palinStart=i;
+                maxLen=curr_len ; 
+              }
+          }
+            
+        }
+ return s.substring(palinStart,palinStart+maxLen);
+ 
     }
-}
-//t-O(n^2),s-O(1)
+}//T-O(n^2),S-O(n^2)
