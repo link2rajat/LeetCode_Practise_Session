@@ -1,6 +1,6 @@
 class Solution {
     public int bitwiseComplement(int num) {
-           if (num == 0) return 1;
+         if (num == 0) return 1;
         int i=0;
         int result=0;
         
