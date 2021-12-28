@@ -1,31 +1,57 @@
 class Solution {
-    
+  int total;
     public int findTargetSumWays(int[] nums, int target) {
-    int total=0;
         
-        for(int num:nums)
+        for(int num: nums)
         {
             total+=num;
         }
-        
-        
-        int[][] dp = new int[nums.length][2*total+1]; 
-        dp[0][nums[0]+total]=1;
-        dp[0][-nums[0]+total]+=1;
+      
+        int [][] memo = new int[nums.length][2*total+1];
+       
+        for(int [] mem: memo)
+        {
             
-            for(int i=1;i<nums.length;i++)
-            {
-               for(int sum=-total;sum<=total;sum++)
-               {
-                 if(dp[i-1][sum+total]>0)
-                 {
-                dp[i][sum+nums[i]+total]+=dp[i-1][sum+total];
-                dp[i][sum-nums[i]+total]+=dp[i-1][sum+total];
-                 }
-               }
-            }
+            Arrays.fill(mem,Integer.MIN_VALUE);
+        }
         
-        return Math.abs(target)>total ?0:dp[nums.length-1][target+total];
+        return targetSum(nums,target,0,0,memo);
+        
+        
     }
     
-}//T-O(t*n),S-O(t*n)
+    int targetSum(int[] nums, int target, int index, int currentSum, int[][] memo)
+    {
+        if(index==nums.length)
+        {
+            
+            if(currentSum==target)
+            {
+                return 1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        
+        else 
+        {
+       
+        if(memo[index][currentSum+total]!= Integer.MIN_VALUE)
+        {
+            return memo[index][currentSum+total];
+        }
+        
+        
+            int sum = targetSum(nums,target,index+1,currentSum+nums[index],memo);
+            
+            int diff = targetSum(nums,target,index+1,currentSum-nums[index],memo);
+            
+             memo[index][currentSum+total] = sum+diff;
+        }
+        
+        return memo[index][currentSum+total];        
+        
+    }
+}//T-O(n*t),S-O(n*t)
