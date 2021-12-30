@@ -1,13 +1,6 @@
 class Solution {
     public int minInsertions(String s) {
-        if(isPlaindrome(s))
-        {
-            return 0;
-        }
-        
-       
         return s.length()- lps(s);
-        
     }
     
     int lps(String s)
@@ -46,23 +39,5 @@ class Solution {
         }
         return dp[startIdx][endIdx];
     }
-    boolean isPlaindrome(String s)
-    {
-        
-        int low=0,high=s.length()-1;
-        
-        while(low<=high)
-        {
-            
-            if(s.charAt(low)!= s.charAt(high))
-            {
-                return false;
-            }
-            
-            low++;
-            high--;
-        }
-        
-        return true;
-    }
+
 }//T-O(N^2),S-O(N^2)
