@@ -1,28 +1,32 @@
 class Solution {
-    
     public int totalFruit(int[] fruits) {
-        int max_fruit=0;
-        HashMap<Integer,Integer> freq_map = new HashMap<>();
-        int winstart=0;
+        
+        if(fruits==null || fruits.length==0)
+            return 0;
+        
+        Map<Integer,Integer> map = new HashMap<>();
+        
+        int fruitCount = Integer.MIN_VALUE;
+        int winStart=0;
+        
         for(int winEnd=0;winEnd<fruits.length;winEnd++)
         {
-           freq_map.put(fruits[winEnd],freq_map.getOrDefault(fruits[winEnd],0)+1);
+           map.put(fruits[winEnd],map.getOrDefault(fruits[winEnd],0)+1);
+           while(map.size()>2)
+           {
+                map.put(fruits[winStart],map.get(fruits[winStart])-1);
+               if(map.get(fruits[winStart])==0)
+               {
+             map.remove(fruits[winStart]);
+               }
+               winStart++;
+           }
             
-            while(freq_map.size()>2)
-            {
-                
-                freq_map.put(fruits[winstart],freq_map.get(fruits[winstart])-1);
-                
-                if(freq_map.get(fruits[winstart])==0)
-                {
-                    freq_map.remove(fruits[winstart]);
-                }
-                winstart++;
-            }
-            
-            max_fruit=Math.max(max_fruit,winEnd-winstart+1);
+            fruitCount= Math.max(fruitCount,winEnd-winStart+1);
         }
         
-        return max_fruit;
+        return fruitCount;
+        
+        
     }
-}//T-O(n),S-O(1)
+}//T-O(N),S-O(1)
