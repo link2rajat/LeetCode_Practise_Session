@@ -28,9 +28,10 @@ class EmployeeInterval{
 }
 class Solution {
     public List<Interval> employeeFreeTime(List<List<Interval>> schedule) {
-    
+     //minHeap sorted with start time
       PriorityQueue<EmployeeInterval> minHeap = new  PriorityQueue<EmployeeInterval>((a,b)->a.interval.start-b.interval.start);
-        
+
+    //Add first interval (EmployeeInterval) of every employee in minheap    
     for(int i=0;i<schedule.size();i++)
     {
         List<Interval> employee = schedule.get(i);
@@ -41,6 +42,9 @@ class Solution {
         List<Interval> freeInterval = new ArrayList<>();
         EmployeeInterval prevEmpItr = minHeap.peek();
         
+                
+//Poll top in the heap, compare with previous, if overlaps, update prev, else, update free Interval.
+        //Also, if next interval is present of currently polled employee, add his next interval
         while(!minHeap.isEmpty())
         {
             EmployeeInterval currentEmpItr = minHeap.poll();
