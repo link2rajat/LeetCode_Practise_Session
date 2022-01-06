@@ -38,16 +38,19 @@ class Solution {
         
         while(!queue.isEmpty())
         {
+            Node previous = null;
             int size = queue.size();
 
             for(int i=0;i<size;i++) 
             {
              Node current = queue.poll();
              
-                if(i< size- 1)
+                if(previous != null)
                 {
-                    current.next = queue.peek();
+                    previous.next = current;
                 }
+                
+                previous= current;
                 
                 if(current.left != null)
                 {
