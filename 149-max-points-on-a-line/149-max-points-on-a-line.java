@@ -57,7 +57,7 @@ class Solution {
             result = Math.max(result, current_max+overlap+1);
         }
        return result; 
-    }
+    }//T-O(N^2),S-O(N)
     
     int findGCD(int num_1, int num_2)
     {
