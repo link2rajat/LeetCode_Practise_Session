@@ -24,7 +24,7 @@ class Solution {
         
         return buildBST(nums, 0 , nums.length-1);
         
-    }//T-O(log N), S-O(log N)
+    }//T-O(N), S-O(log N)
     
     TreeNode buildBST(int[] nums, int left, int right)
     {
