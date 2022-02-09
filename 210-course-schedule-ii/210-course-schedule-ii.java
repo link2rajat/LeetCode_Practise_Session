@@ -2,16 +2,14 @@ class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
         
         
-        Map<Integer,List<Integer>> graph = new HashMap<>();
+     Map<Integer,List<Integer>> graph = new HashMap<>();
         
        int[] inDegree = new int[numCourses];
         
         
         for(int i=0;i<numCourses;i++)
         {    
-            
             graph.putIfAbsent(i,new ArrayList<>());
-            
         }
         
         
@@ -54,13 +52,8 @@ class Solution {
                 }
             }
         }
-            
-        if(count==numCourses)
-        {
-            return order;
-        }
         
-        return new int[0];
+        return (count==numCourses) ? order:  new int[0];
             
     }
-}//T-_O(V+E),S-O(V+E)
+}//T-O(V+E),S-O(V+E)
