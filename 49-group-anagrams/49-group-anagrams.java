@@ -13,7 +13,7 @@ class Solution {
             
             String key = String.valueOf(chArray);
             
-            if(!anagramMap.containsKey(key)) anagramMap.put(key,new ArrayList());
+            anagramMap.putIfAbsent(key,new ArrayList());
             
             anagramMap.get(key).add(currentString);
         }
