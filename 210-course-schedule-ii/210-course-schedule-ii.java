@@ -26,10 +26,10 @@ class Solution {
         
          for(int i=0;i<numCourses;i++)
         {    
-             if(inDegree[i]==0)             {
+             if(inDegree[i]==0)
+             {
                queue.add(i);  
              }
-            
         }
 
         int count=0;
