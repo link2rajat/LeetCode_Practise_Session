@@ -16,7 +16,7 @@ class StockSpanner {
         stack.push(new int[]{price,spanCount});
         return spanCount;
     }
-}
+}//T-O(1),S-O(n)
 
 /**
  * Your StockSpanner object will be instantiated and called as such:
