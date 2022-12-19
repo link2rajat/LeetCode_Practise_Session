@@ -6,7 +6,7 @@ class Solution {
         constructGraph(n,edges,graph);
         boolean[] visited = new boolean[n];
         return findPath(graph,source,destination, visited);
-    }//T-O(n),S-O(n)
+    }//T-O(n+m),S-O(n+m)
     
     void constructGraph(int n,int[][] edges,Map<Integer,List<Integer>> graph){
         for(int index=0;index<n;index++){
