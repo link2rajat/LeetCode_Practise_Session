@@ -14,7 +14,7 @@ class Solution {
             sortedTasks[i][2] = i;
         }
         
-        Arrays.sort(sortedTasks,(a,b)->Integer.compare(a[0],b[0]));
+        Arrays.sort(sortedTasks,(a,b)->a[0]-b[0]);
 
         int[] taskOrder = new int[n];
         
