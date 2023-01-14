@@ -38,5 +38,5 @@ class Solution {
             result.append((char)(find(c-'a')+'a'));
         }
         return result.toString();
-    }
+    }//T-O(N+M(log head)),S-O(head)
 }
