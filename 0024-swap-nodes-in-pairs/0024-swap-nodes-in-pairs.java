@@ -17,16 +17,21 @@ class Solution {
         ListNode previousNode = dummy;
         
         while((head != null) && (head.next !=null)){
-            
+                        //1
             ListNode firstNode = head;
+                          //2              
             ListNode secondNode = head.next;
             
             //swapNode
+                    //dummy-->2
             previousNode.next = secondNode;
+                    //1-->3
             firstNode.next = secondNode.next;
+                       //2-->1
             secondNode.next = firstNode;
-            
+                    //prev->1
             previousNode = firstNode;
+                    //head->3
             head = firstNode.next;
         }
         
