@@ -4,47 +4,51 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
+import java.util.*;
 class Solution {
     public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
-       List<List<Integer>> result = new ArrayList<>();
+        List<List<Integer>> levels = new LinkedList<>();
+                if(root==null)
+                    return levels;
         
-        if(root==null)
-            return result;
+        Queue<TreeNode> queue = new LinkedList<>();
+        queue.add(root);
         
-        zigZagLevelHelper(root,result,0);
+        boolean  even=true;
         
-        return result;
+        while(!queue.isEmpty()){
+            
+            int size=queue.size();
+            
+            LinkedList<Integer> level = new LinkedList<>();
+            
+            for(int i=0;i<size;i++){
+                
+                TreeNode current = queue.poll();
+                
+                if(current.left!=null){
+                    queue.add(current.left);
+                }
+                if(current.right!=null){
+                    queue.add(current.right);
+                }
+                if(even)
+                    level.add(current.val);
+                else
+                    level.addFirst(current.val);
+            }
+            levels.add(level);
+            even=!even;
+            }
+        return levels;
     }
-    
-    
-    void zigZagLevelHelper(TreeNode node,List<List<Integer>> result,int level)
-    {
-        if(level>=result.size())
-        {
-            List<Integer> newLevel = new ArrayList<>();
-            newLevel.add(node.val);
-            result.add(newLevel);
-        }
-        
-        else{ 
-         if(level%2==0)
-         {
-         result.get(level).add(node.val);
-        }
-         else
-        {
-         result.get(level).add(0,node.val);
-        }
-        }
-        if(node.left!=null)
-        zigZagLevelHelper(node.left,result,level+1);
-        
-        if(node.right!=null)
-        zigZagLevelHelper(node.right,result,level+1);
- 
-    }
-    
-}//T-O(N),S-O(logN)
+}
