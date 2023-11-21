@@ -1,42 +1,46 @@
+class Pair{
+    String nextStr;
+    int steps;
+    Pair(String nextStr,int steps){
+        this.nextStr=nextStr;
+        this.steps=steps;
+    }
+}
 class Solution {
-    public int minMutation(String start, String end, String[] bank) {
-        Queue<String> queue = new LinkedList<>();
-        Set<String> set = new HashSet<>();
-        
-        queue.add(start);
-        set.add(start);
-
-        int step =0;
-        
-        while(!queue.isEmpty())
-        {
-            int size = queue.size();
-            
-            for(int j=0;j<size;j++)
-            {
-             String node = queue.remove();
-             
-                if(node.equals(end)){
-                    return step;
-                }
-                
-                for(char ch : new char[]{'A','C','G','T'}){
-                    for(int i=0;i<node.length();i++)
-                    {
-                    String newNode = node.substring(0,i)+ch+node.substring(i+1);
-                    
-                        if(!set.contains(newNode) && Arrays.asList(bank).contains(newNode))
-                        {
-                            queue.add(newNode);
-                            set.add(newNode);
-                        }
-                    }
+    public int minMutation(String startGene, String endGene, String[] bank) {
+        Set<String> bankSet = new HashSet<>();
+        Set<String> seen = new HashSet<>();
+        for(String s:bank){
+            bankSet.add(s);
+        }
+        Queue<Pair> queue = new LinkedList<>();
+        queue.offer(new Pair(startGene,0));
+        seen.add(startGene);
+        while(!queue.isEmpty()){
+            Pair pair = queue.poll();
+            String node = pair.nextStr;
+            int steps= pair.steps;
+            if(node.equals(endGene)){
+                return steps;
+            }
+            for(String nextString : neighbour(node)){
+                if(bankSet.contains(nextString) && !seen.contains(nextString)){
+                    queue.offer(new Pair(nextString,steps+1));
+                    seen.add(nextString);
+                  
                 }
             }
-            step++;
         }
-        
         return -1;
-        
     }
-}//T-O(N) , S-O(1)
+    
+    List<String> neighbour(String node){
+        List<String> ans = new ArrayList<>();
+         for(char ch : new char[]{'A', 'C', 'G', 'T'}){
+        for(int i=0;i<node.length();i++){
+            ans.add(node.substring(0,i)+ch+node.substring(i+1));
+            }
+        }
+        return ans;
+    }
+}
