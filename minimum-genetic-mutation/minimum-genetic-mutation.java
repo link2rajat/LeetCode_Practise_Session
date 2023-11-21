@@ -11,6 +11,9 @@ class Solution {
         Set<String> bankSet = new HashSet<>();
         Set<String> seen = new HashSet<>();
         for(String s:bank){
+            // if(s != endGene){
+            //     return -1;
+            // }
             bankSet.add(s);
         }
         Queue<Pair> queue = new LinkedList<>();
@@ -25,9 +28,8 @@ class Solution {
             }
             for(String nextString : neighbour(node)){
                 if(bankSet.contains(nextString) && !seen.contains(nextString)){
-                    queue.offer(new Pair(nextString,steps+1));
                     seen.add(nextString);
-                  
+                    queue.offer(new Pair(nextString,steps+1));
                 }
             }
         }
@@ -36,9 +38,11 @@ class Solution {
     
     List<String> neighbour(String node){
         List<String> ans = new ArrayList<>();
-         for(char ch : new char[]{'A', 'C', 'G', 'T'}){
         for(int i=0;i<node.length();i++){
-            ans.add(node.substring(0,i)+ch+node.substring(i+1));
+           char currentChar = node.charAt(i);
+            for(char ch : new char[]{'A', 'C', 'G', 'T'}){
+                // if(currentChar != ch))
+                ans.add(node.substring(0,i)+ch+node.substring(i+1));
             }
         }
         return ans;
