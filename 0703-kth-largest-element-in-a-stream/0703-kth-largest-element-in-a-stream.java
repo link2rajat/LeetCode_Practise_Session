@@ -1,26 +1,33 @@
 class KthLargest {
-    private static int k;
-    private PriorityQueue<Integer> heap;
     
+    int k;
+    PriorityQueue<Integer> queue = new PriorityQueue<>();
+  
     public KthLargest(int k, int[] nums) {
-        this.k = k;
-        heap = new PriorityQueue<>();
         
-        for (int num: nums) {
-            heap.offer(num);
+        this.k=k;
+        for(int num:nums){
+            queue.offer(num);
         }
         
-        while (heap.size() > k) {
-            heap.poll();
+          while(queue.size()>k){
+           queue.poll();
         }
+        
     }
     
     public int add(int val) {
-        heap.offer(val);
-        if (heap.size() > k) {
-            heap.poll();
+      
+        queue.offer(val);
+        if(queue.size()>k){
+           queue.poll();
         }
-
-        return heap.peek();
+        return queue.peek();
     }
 }
+
+/**
+ * Your KthLargest object will be instantiated and called as such:
+ * KthLargest obj = new KthLargest(k, nums);
+ * int param_1 = obj.add(val);
+ */
