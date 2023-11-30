@@ -1,42 +1,24 @@
 class Solution {
     public int[] successfulPairs(int[] spells, int[] potions, long success) {
-        
         Arrays.sort(potions);
-        
         int[] ans = new int[spells.length];
-        
-        int positionLength = potions.length;
-        
-        int maxPotion = potions[positionLength-1];
-        
-        
+        int m=potions.length;
         for(int i=0;i<spells.length;i++){
-       
-            int currentSpell= spells[i];
-            
-            long minPotion= (long) Math.ceil((1.0*success)/currentSpell);
-            
-            if(minPotion>maxPotion){
-                ans[i]=0;
-                continue;
-            }
-            int index = lowerBound(potions,(int)minPotion);
-            ans[i]=positionLength-index;
+            int j=binarysearch(potions,(double)success/spells[i]);
+            ans[i]=m-j;
         }
         return ans;
     }
-    
-    int lowerBound(int[] potions,int target){
-        int low=0,high=potions.length;
-        while(low<high){
-            int mid = low+(high-low)/2;
-            if(potions[mid]<target){
+    int binarysearch(int[] array,double target){
+        int low=0,high=array.length-1;
+        while(low<=high){
+            int mid=low+(high-low)/2;
+            if(array[mid]<target){
                 low=mid+1;
             }else{
-                high=mid;
+                high=mid-1;
             }
         }
         return low;
     }
-    
-}//T-O(m+n(logm)),S-O(m)
+}
