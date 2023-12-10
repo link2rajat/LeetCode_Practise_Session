@@ -5,7 +5,7 @@ class Solution {
         denoms[0]=0;
         int toCompare=0;
         for(int coin:coins){
-            for(int i=0;i<amount+1;i++){
+            for(int i=0;i<denoms.length;i++){
                 if(coin<=i){
                     if(denoms[i-coin]==Integer.MAX_VALUE){
                         toCompare=denoms[i-coin];
