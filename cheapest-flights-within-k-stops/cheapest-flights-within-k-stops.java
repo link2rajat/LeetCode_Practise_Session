@@ -9,7 +9,7 @@ class Solution {
         }
         //Sort based on min cost
         PriorityQueue<int[]> minHeap = new PriorityQueue<>((n1,n2)->(n1[0]-n2[0]));
-        
+                                                  
         minHeap.add(new int[]{0,src,0});
         
         HashMap<Integer,int[]> seen = new HashMap<>();
@@ -17,11 +17,11 @@ class Solution {
         {
             int[] flightstation = minHeap.poll();
             
-            int cost = flightstation[0], stopCount=flightstation[2];
+            int cost = flightstation[0],currentStation=flightstation[1], stopCount=flightstation[2];
             
-            if(seen.containsKey(flightstation[1]) && seen.get(flightstation[1])[0]<cost &&seen.get(flightstation[1])[1]<stopCount)continue;
-            seen.put(flightstation[1], new int[]{cost,stopCount});
-            if(flightstation[1]==dst)
+            if(seen.containsKey(currentStation) && seen.get(currentStation)[0]<cost &&seen.get(currentStation)[1]<stopCount)continue;
+            seen.put(currentStation, new int[]{cost,stopCount});
+            if(currentStation==dst)
             {
                 return cost;
             }
@@ -32,9 +32,9 @@ class Solution {
             
                for(int nextStation=0;nextStation<n;nextStation++)
                {
-                   if(adj[flightstation[1]][nextStation]>0)
+                   if(adj[currentStation][nextStation]>0)
                    {
-                       minHeap.add(new int[]{cost+adj[flightstation[1]][nextStation],nextStation,stopCount+1});
+                       minHeap.add(new int[]{cost+adj[currentStation][nextStation],nextStation,stopCount+1});
                    }
                }
             
