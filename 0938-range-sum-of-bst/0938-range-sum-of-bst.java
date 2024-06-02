@@ -14,25 +14,25 @@
  * }
  */
 class Solution {
-    int sum;
     public int rangeSumBST(TreeNode root, int low, int high) {
-         sum=0;
-        dfsHelper(root,low,high);
-        return sum;
-    }//T-O(n),S-O(n)
-    
-    void dfsHelper(TreeNode node, int low, int high){
-        
-        if(node != null){
-            if(node.val>=low && node.val<= high){
-                sum+=node.val;
-            }
-            if(node.val>low){
-                dfsHelper(node.left,low,high);
-            }
-            if(node.val<high){
-                dfsHelper(node.right,low,high);
-            }
+        if(root==null){
+            return 0;
         }
+        
+        int sum=0;
+        
+        if(low<=root.val && root.val<=high){
+            sum+=root.val;
+        }
+        
+        if(low<root.val){
+           sum+=rangeSumBST(root.left, low, high); 
+        }
+        
+        if(root.val<high){
+           sum+=rangeSumBST(root.right, low, high);
+        }
+        
+        return sum;
     }
 }
