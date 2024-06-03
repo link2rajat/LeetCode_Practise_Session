@@ -1,77 +1,40 @@
 class Solution {
-    
-    class UnionFind
-    {
-        int count=0;
+    public int findCircleNum(int[][] isConnected) {
         
-        int[] rank;
-        int[] parent;
-      
-        public UnionFind(int n)
-        {
-            count=n;
-            rank = new int[n];
-            parent = new int[n];
-        for(int i=0;i<n;i++)
-        {
-            parent[i]=i;
-        }
-        }
-        public int find(int x)
-        {
-            while(x!=parent[x])
-            {
-                parent[x]=parent[parent[x]];
-                x=parent[x];
-            }
-            return x;
-        }
+        int n=isConnected.length;
+        Map<Integer,List<Integer>> graph = new HashMap<>();
+        Set<Integer> seen = new HashSet<>();
         
-        public void union(int m, int n)
-        {
-            int L = find(m);
-            int R = find(n);
-            if(L==R)return;
-            if(rank[L]>rank[R])
-            {
-                parent[R]=L;
-            }
-            else
-            {
-                parent[L]=R;
-                if(rank[R]==rank[L])
-                    rank[L]++;
-               
-            }
-            count--;
-        }
-        
-        public int count()
-        {
-            return count;
-        }
-        
-    }
-    
-    
-    
-    public int findCircleNum(int[][] M) {
-     int n = M.length;
-    UnionFind u = new UnionFind(n);
-    for(int i=0;i<n-1;i++)
-    {
-        for(int j=i+1;j<n;j++)
-        {
+        for(int i=0;i<n;i++){
+          if(!graph.containsKey(i))
+            graph.put(i,new ArrayList<>());
             
-            if(M[i][j]==1)
-                u.union(i,j);
+            for(int j=i+1;j<n;j++){
+                if(!graph.containsKey(j))
+                    graph.put(j,new ArrayList<>());
+                if(isConnected[i][j]==1){
+                    graph.get(i).add(j);
+                    graph.get(j).add(i);
+              }
+            }
         }
-    }
-       
-    return u.count();
-        
+        int answer=0;
+        for(int i=0;i<n;i++){
+            if(!seen.contains(i)){
+                seen.add(i);
+                answer++;
+                dfs(i,seen,graph);
+            }
+        }
+        return answer;
+    }//T-O(N),S-O(N)
     
+    void dfs(int node,Set<Integer> seen,Map<Integer,List<Integer>> graph){
+        for(Integer neighbour:graph.get(node)){
+           if(!seen.contains(neighbour)){
+                seen.add(neighbour);
+               dfs(neighbour,seen,graph);
+           }
+        }
     }
 }
-
-//T-O(n^2),S-O(n)
