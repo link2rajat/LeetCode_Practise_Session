@@ -41,17 +41,17 @@ class TrieNode{
     }
     
     public boolean search(String word) {
-        TrieNode node=searchPrefix(word,root);
+        TrieNode node=searchPrefix(word);
         return node !=null && node.isEnd(); 
     }
     
     public boolean startsWith(String prefix) {
-        TrieNode node= searchPrefix(prefix,root); 
+        TrieNode node= searchPrefix(prefix); 
         return  node !=null;
     }
     
     
-    TrieNode searchPrefix(String word , TrieNode root){
+    TrieNode searchPrefix(String word){
        TrieNode node = root;
        for(int i=0;i<word.length();i++){
           char wordChar = word.charAt(i);
