@@ -4,28 +4,26 @@
  *     int val;
  *     TreeNode left;
  *     TreeNode right;
- *     TreeNode(int x) { val = x; }
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
  * }
  */
 class Solution {
     public TreeNode invertTree(TreeNode root) {
-        helperInvertTree(root);
-        return root;
-    }
-    
-    void helperInvertTree(TreeNode node)
-    {
-        if( node == null )
-        {
-            return;
+        if(root ==null){
+            return root;
         }
         
-        TreeNode temp = node.right;
-        node.right = node.left;
-        node.left = temp;
-        
-        helperInvertTree(node.left);
-        helperInvertTree(node.right);
-        
+        TreeNode temp = root.right;
+        root.right=root.left;
+        root.left=temp;
+        invertTree(root.left);
+        invertTree(root.right);
+        return root;
     }
 }
