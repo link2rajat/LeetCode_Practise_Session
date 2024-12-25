@@ -1,16 +1,20 @@
 class Solution {
-    public int lengthOfLongestSubstring(String s) {
-        int winStart=0;
-        int maxLength=0;
-        Map<Character,Integer> map = new HashMap<>();
-        for(int winEnd=0;winEnd<s.length();winEnd++){
-            if(map.containsKey(s.charAt(winEnd))){
-                winStart=Math.max(winStart,map.get(s.charAt(winEnd)));
+   public int lengthOfLongestSubstring(String s) {
+        Set<Character> set = new HashSet<>();
+
+        int left = 0;
+        int right = 0;
+        int max = 0;
+
+        while(right < s.length()){
+            if(!set.contains(s.charAt(right))){
+                set.add(s.charAt(right++));
+                max = Math.max(max, set.size());
+            }else{
+                set.remove(s.charAt(left++)); //this effectively slides the window to the next character. Getting rid of the duplicate
             }
-            map.put(s.charAt(winEnd),winEnd+1);
-            maxLength=Math.max(maxLength,winEnd-winStart+1);
         }
-        return maxLength;
-        
+
+        return max;
     }
 }
